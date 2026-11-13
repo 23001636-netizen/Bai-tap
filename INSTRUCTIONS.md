@@ -39,9 +39,21 @@ Chạy file demo
 python demo_mysql.py
 ```
 
-## Ghi chú
-- Yêu cầu Python 3.11 trở lên
-- MySQL server phải đang chạy và có cấu hình phù hợp
-- Đảm bảo file `demo_mysql.py` có trong thư mục
+## Bước 4: Chạy MySQL trong Docker container (nếu dùng Docker)
 
-Chúc bạn thành công!
+- Đảm bảo Docker Desktop đang chạy (xem biểu tượng Docker đang xanh)
+- Kéo image MySQL chính thức:
+	```bash
+	docker pull mysql:latest
+	```
+- Chạy container MySQL với cấu hình:
+	```bash
+	docker run --name mysql-demo -e MYSQL_ROOT_PASSWORD=Minhtu2005 -d -p 3306:3306 mysql:latest
+	```
+- Kiểm tra container đang chạy:
+	```bash
+	docker ps
+	```
+## Ghi chú chung
+- Port mặc định MySQL là 3306. Nếu bị trùng cổng với MySQL cài đặt trên máy, có thể dùng cổng khác như 3307:3307:3306
+- Kết nối MySQL trong Python dùng host localhost, port 3306 (hoặc cổng bạn ánh xạ), user root, password là mật khẩu bạn chọn khi chạy container.
