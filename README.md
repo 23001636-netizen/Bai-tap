@@ -15,7 +15,7 @@
 - OS: Windows
 - Python: 3.11 (site-packages used: mysql-connector-python, pandas)
 - MySQL: local `test1` database (InnoDB)
-- Máy: (ghi môi trường phần cứng nếu cần trước khi nộp)
+- Máy: (CPU/RAM not recorded) — please add if required
 
 ## Scripts
 - `insert_data.py` — ban đầu chứa hai phương pháp: row-by-row và executemany (đã bổ sung logging và đo thời gian).
@@ -24,7 +24,21 @@
 ## Kết quả benchmark (sample 1M)
 - Row-by-row: 151.96 s
 - Executemany (chunked): 28.01 s
-- LOAD DATA LOCAL INFILE: failed (server/client disabled `local_infile`)
+- LOAD DATA LOCAL INFILE: failed (server/client disabled `local_infile`) — later enabled and re-run
+
+## Kết quả benchmark (multi-file — 3 parts, ~1.2M each)
+- train_part1.csv
+  - Row-by-row: 203.56 s
+  - Executemany: 37.00 s
+  - LOAD DATA LOCAL INFILE: failed initially (path issue), later fixed: 11.81 s
+- train_part2.csv
+  - Row-by-row: 192.89 s
+  - Executemany: 36.27 s
+  - LOAD DATA LOCAL INFILE: 14.60 s
+- train_part3.csv
+  - Row-by-row: 198.22 s
+  - Executemany: 44.60 s
+  - LOAD DATA LOCAL INFILE: 15.02 s
 
 ## Phân tích ngắn
 - Row-by-row: dễ triển khai nhưng chậm do nhiều round-trip SQL.
